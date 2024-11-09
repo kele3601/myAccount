@@ -1,0 +1,3 @@
+### hello
+GET {{public}}/hello
+Accept: application/json

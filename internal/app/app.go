@@ -1,10 +1,14 @@
 package app
 
-import "gorm.io/gorm"
+import (
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
+)
 
 type App struct {
 	Config *Config
 	DB     *gorm.DB
+	Web    *gin.Engine
 }
 
 var app *App
@@ -24,5 +28,10 @@ func GetApp(configFilePath string) (*App, error) {
 	} else {
 		app.DB = db
 	}
+	app.Web = gin.Default()
 	return app, nil
+}
+
+func (app *App) LinkStart() error {
+	return app.Web.Run(app.Config.WEB.Port)
 }

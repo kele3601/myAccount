@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log/slog"
 	a "myAccount/internal/app"
+	"myAccount/internal/router"
 )
 
 func main() {
@@ -12,6 +13,11 @@ func main() {
 	if app, err := a.GetApp(*configFilePath); err != nil {
 		slog.Error("create app error:" + err.Error())
 	} else {
-		slog.Info("create app success:" + app.Config.APP.Name)
+		// 封装接口
+		router.SetRouter(app)
+		// 启动
+		if err := app.LinkStart(); err != nil {
+			slog.Error("app run error:" + err.Error())
+		}
 	}
 }
