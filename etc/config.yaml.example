@@ -1,0 +1,7 @@
+app:
+  name: myAccount
+db:
+  type: sqlite
+  file: ./target/db/myAccount.db
+web:
+  port: :5219

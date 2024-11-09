@@ -1,2 +1,4 @@
 # app
 target/
+*_test.go
+etc/config.yaml
