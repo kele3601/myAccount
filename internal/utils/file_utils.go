@@ -1,10 +1,37 @@
 package utils
 
 import (
+	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
 )
+
+// CreateFile 创建文件
+func CreateFile(filePath string) error {
+	// 检查文件路径是否存在，如果不存在则创建目录
+	dirPath := filepath.Dir(filePath)
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		err := os.MkdirAll(dirPath, 0755) // 创建所有必要的父目录
+		if err != nil {
+			return err
+		}
+	}
+
+	// 创建文件
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			slog.Error(fmt.Sprintf("Error closing file: %s", err))
+		}
+	}(file) // 确保在函数返回时关闭文件
+	return nil
+}
 
 // IsExist 检查给定的路径是否存在
 func IsExist(path string) bool {

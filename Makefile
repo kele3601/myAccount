@@ -1,6 +1,7 @@
 APP = myAccount
 TARGET = ./target/app
 SOURCE = ./cmd/start.go
+ARGUMENT = -config=./etc/config.yaml
 
 clean:
 	@go clean
@@ -8,4 +9,4 @@ clean:
 build: clean
 	@go build -o $(TARGET)/$(APP) $(SOURCE)
 run: build
-	@cd $(TARGET) && ./$(APP)
+	@./$(TARGET)/$(APP) $(ARGUMENT)
