@@ -1,7 +1,7 @@
 package app
 
 import (
-	"errors"
+	"fmt"
 	"github.com/spf13/viper"
 	"myAccount/internal/utils"
 )
@@ -22,10 +22,10 @@ type Config struct {
 // GetConfig 根据路径解析配置
 func GetConfig(configFilePath string) (*Config, error) {
 	if configFilePath == "" {
-		return nil, errors.New("config file path is empty")
+		return nil, fmt.Errorf("config file path is empty")
 	}
 	if !utils.IsExist(configFilePath) {
-		return nil, errors.New("config file not exist:" + configFilePath)
+		return nil, fmt.Errorf("config file not exist: %s", configFilePath)
 	}
 	config := &Config{}
 	path, name, ext := utils.SplitFilePath(configFilePath)
