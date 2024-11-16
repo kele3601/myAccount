@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	a "myAccount/internal/app"
-	"myAccount/internal/r"
+	"myAccount/internal/utils/r"
 )
 
 func SetRouter(app *a.App) {
